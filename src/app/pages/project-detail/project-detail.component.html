@@ -1,0 +1,148 @@
+<!-- src/app/pages/project-detail/project-detail.component.html -->
+<app-header></app-header>
+
+<main class="project-detail" *ngIf="project() as proj">
+  <!-- Hero Section -->
+  <section class="project-hero">
+    <div class="container">
+      <div class="hero-content">
+        <h1 class="page-title">Project Detail</h1>
+        <p class="page-subtitle">Details About The Project</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Project Image -->
+  <section class="main-image-section">
+    <div class="container">
+      <div class="main-image-wrapper">
+        <img [src]="proj.mainImage" [alt]="proj.title" class="main-image" />
+      </div>
+    </div>
+  </section>
+
+  <!-- Project Info -->
+  <section class="project-info-section">
+    <div class="container">
+      <!-- Title and Meta -->
+      <div class="project-header">
+        <div class="project-meta">
+          <h2 class="project-title">{{ proj.title }}</h2>
+          <div class="project-tags">
+            <span *ngFor="let tag of proj.tags" class="tag">{{ tag }}</span>
+          </div>
+        </div>
+        <div class="project-details">
+          <div class="detail-item">
+            <span class="detail-label">Year</span>
+            <span class="detail-value">{{ proj.year }}</span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">Role</span>
+            <span class="detail-value">{{ proj.role }}</span>
+          </div>
+          <div class="detail-item" *ngIf="proj.link">
+            <span class="detail-label">Link</span>
+            <a [href]="proj.link" target="_blank" class="detail-link">View Project</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Project Story -->
+      <div class="project-story">
+        <h3 class="section-heading">Project Story</h3>
+        <p class="section-text">{{ proj.story }}</p>
+      </div>
+
+<!-- Remplace la section .project-gallery par ceci -->
+
+<!-- Gallery -->
+<div class="project-gallery">
+  <div class="gallery-grid">
+    <div
+      *ngFor="let image of proj.gallery; let i = index"
+      class="gallery-item">
+      <img
+        [src]="image"
+        [alt]="proj.title + ' - Screenshot ' + (i + 1)"
+        class="gallery-image"
+        (load)="onImageLoad($event)"
+        loading="lazy" />
+    </div>
+  </div>
+</div>
+
+      <!-- Challenge & Solution -->
+      <div class="challenge-solution">
+        <div class="content-block">
+          <h3 class="section-heading">Day One</h3>
+          <p class="section-text">{{ proj.challenge }}</p>
+        </div>
+      </div>
+
+      <!-- Technologies Used -->
+      <div class="technologies-section">
+        <h3 class="section-heading">Technologies Used</h3>
+        <div class="tech-list">
+          <span *ngFor="let tech of proj.technologies" class="tech-badge">{{ tech }}</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Navigation -->
+  <section class="project-navigation">
+    <div class="container">
+      <div class="nav-container">
+        <button
+          class="nav-btn prev"
+          (click)="navigateToProject('previous')"
+          [disabled]="!canNavigate('previous')">
+          <span class="nav-arrow">←</span>
+          <span class="nav-text">PREVIOUS WORK</span>
+        </button>
+        <button
+          class="nav-btn next"
+          (click)="navigateToProject('next')"
+          [disabled]="!canNavigate('next')">
+          <span class="nav-text">NEXT WORK</span>
+          <span class="nav-arrow">→</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Other Projects -->
+  <section class="other-projects-section">
+    <div class="container">
+      <h3 class="section-title-center">Other Projects</h3>
+
+      <div class="projects-grid">
+        <a
+          *ngFor="let relatedProj of relatedProjects"
+          [routerLink]="['/project', relatedProj.id]"
+          class="project-card">
+          <div class="project-image">
+            <img [src]="relatedProj.image" [alt]="relatedProj.title" />
+          </div>
+          <div class="project-info">
+            <h4 class="project-name">{{ relatedProj.title }}</h4>
+            <span class="project-cat">{{ relatedProj.category }}</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta-section">
+    <div class="container">
+      <div class="cta-content">
+        <p class="cta-label">Get in Touch With Us</p>
+        <a href="mailto:info@aaronn.com" class="cta-email">infoaaronn.com</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<app-footer></app-footer>

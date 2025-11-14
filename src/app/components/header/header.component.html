@@ -1,0 +1,60 @@
+<!-- src/app/components/header/header.component.html -->
+<header class="header">
+  <div class="container">
+    <a routerLink="/" class="logo" (click)="closeMenu()">
+      <span class="logo-text">CSR<span class="logo-highlight">OO</span>T</span>
+    </a>
+
+    <!-- Navigation Desktop -->
+    <nav class="nav desktop-nav">
+      <a
+        *ngFor="let item of menuItems"
+        [routerLink]="item.path"
+        [routerLinkActive]="'active'"
+        [routerLinkActiveOptions]="{ exact: item.exact }"
+        class="nav-link">
+        {{ item.label }}
+      </a>
+      <a routerLink="/contact" class="btn-contact">CONTACT</a>
+    </nav>
+
+    <!-- Hamburger Button -->
+    <button
+      class="hamburger"
+      [class.active]="isMenuOpen()"
+      (click)="toggleMenu()"
+      aria-label="Toggle menu">
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+    </button>
+  </div>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" [class.open]="isMenuOpen()">
+    <nav class="mobile-nav">
+      <a
+        *ngFor="let item of menuItems"
+        [routerLink]="item.path"
+        [routerLinkActive]="'active'"
+        [routerLinkActiveOptions]="{ exact: item.exact }"
+        class="mobile-nav-link"
+        (click)="closeMenu()">
+        {{ item.label }}
+      </a>
+      <a
+        routerLink="/contact"
+        class="mobile-btn-contact"
+        (click)="closeMenu()">
+        CONTACT
+      </a>
+    </nav>
+  </div>
+
+  <!-- Overlay -->
+  <div
+    class="mobile-overlay"
+    [class.active]="isMenuOpen()"
+    (click)="closeMenu()">
+  </div>
+</header>

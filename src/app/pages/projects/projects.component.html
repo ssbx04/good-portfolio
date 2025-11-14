@@ -1,0 +1,87 @@
+<!-- src/app/pages/projects/projects.component.html -->
+<app-header></app-header>
+
+<main class="projects">
+  <!-- Hero Section -->
+  <section class="projects-hero">
+    <div class="container">
+      <div class="hero-content">
+        <h1 class="page-title">My Works</h1>
+        <p class="page-subtitle">Discover My Achievements</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Filters Section -->
+  <section class="filters-section">
+    <div class="container">
+      <div class="filters-wrapper">
+        <div class="filters-header">
+          <h2 class="filters-title">Filter by Category</h2>
+          <span class="projects-count">{{ getProjectCount() }} project{{ getProjectCount() > 1 ? 's' : '' }}</span>
+        </div>
+
+        <div class="category-filters">
+          <button
+            *ngFor="let category of categories"
+            class="filter-btn"
+            [class.active]="selectedCategory() === category"
+            (click)="filterByCategory(category)">
+            {{ category }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects Grid Section -->
+  <section class="projects-grid-section">
+    <div class="container">
+      <div class="projects-grid">
+
+          <a *ngFor="let project of getFilteredProjects()"
+          [routerLink]="['/project', project.id]"
+          class="project-card">
+
+          <div class="project-image">
+            <img [src]="project.image" [alt]="project.title" />
+            <div class="project-overlay">
+              <span class="view-project">View Project</span>
+            </div>
+          </div>
+
+          <div class="project-info">
+            <div class="project-header">
+              <h3 class="project-title">{{ project.title }}</h3>
+              <span class="project-year">{{ project.year }}</span>
+            </div>
+
+            <div class="project-meta">
+              <span class="project-category">{{ project.category }}</span>
+              <div class="project-tags">
+                <span *ngFor="let tag of project.tags" class="tag">{{ tag }}</span>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <!-- Empty State -->
+      <div class="empty-state" *ngIf="getFilteredProjects().length === 0">
+        <p>No projects found in this category.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta-section">
+    <div class="container">
+      <div class="cta-content">
+        <p class="cta-label">Have a project in mind?</p>
+        <a routerLink="/contact" class="cta-button">Contact me</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<app-footer></app-footer>

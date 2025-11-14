@@ -1,0 +1,28 @@
+<!-- src/app/components/footer/footer.component.html -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-content">
+      <div class="footer-logo">
+        <span class="logo-text">CSR<span class="logo-highlight">OO</span>T</span>
+      </div>
+
+      <div class="footer-info">
+        <div class="info-item">
+          <p>{{ contactInfo.address }}</p>
+        </div>
+        <div class="info-item">
+          <p>{{ contactInfo.phone }}</p>
+          <div class="social-links">
+            <a *ngFor="let social of socialLinks" [href]="social.url" class="social-link" [attr.aria-label]="social.name">
+              <img [src]="social.icon" />
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>© {{ currentYear }}. Cheikh S. SONKO. All rights reserved.</p>
+    </div>
+  </div>
+</footer>

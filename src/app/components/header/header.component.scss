@@ -1,0 +1,406 @@
+// src/app/components/header/header.component.scss
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 1.5rem 0;
+  background-color: rgba(26, 26, 26, 0.95);
+  backdrop-filter: blur(10px);
+  z-index: 1000;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+
+  // Animation d'entrée de la navbar
+  animation: slideDown 0.6s ease-out;
+
+  @keyframes slideDown {
+    from {
+      transform: translateY(-100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  .container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .logo {
+    z-index: 1001;
+    transition: transform 0.3s ease;
+
+    &:hover {
+      transform: scale(1.05);
+    }
+
+    .logo-text {
+      font-size: 1.5rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+
+      .logo-highlight {
+        color: var(--color-orange);
+        display: inline-block;
+        transition: all 0.3s ease;
+
+        // Effet de brillance subtil
+        animation: glow 2s ease-in-out infinite;
+      }
+    }
+
+    @keyframes glow {
+      0%, 100% {
+        text-shadow: 0 0 5px rgba(255, 107, 53, 0.3);
+      }
+      50% {
+        text-shadow: 0 0 15px rgba(255, 107, 53, 0.6);
+      }
+    }
+  }
+
+  // Desktop Navigation
+  .desktop-nav {
+    display: flex;
+    align-items: center;
+    gap: 2.5rem;
+
+    .nav-link {
+      font-size: 0.875rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      color: var(--color-gray-400);
+      transition: all 0.3s ease;
+      position: relative;
+
+      // Soulignement animé
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: -0.25rem;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background-color: var(--color-orange);
+        transition: width 0.3s ease;
+      }
+
+      &:hover {
+        color: var(--color-white);
+        transform: translateY(-2px);
+
+        &::after {
+          width: 100%;
+        }
+      }
+
+      &.active {
+        color: var(--color-white);
+
+        &::after {
+          width: 100%;
+        }
+      }
+    }
+
+    .btn-contact {
+      padding: 0.75rem 1.75rem;
+      background-color: transparent;
+      color: var(--color-white);
+      border: 1px solid var(--color-gray-600);
+      border-radius: 50px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+
+      // Effet de brillance qui traverse
+      &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.2),
+          transparent
+        );
+        transition: left 0.5s ease;
+      }
+
+      &:hover {
+        background-color: var(--color-orange);
+        border-color: var(--color-orange);
+        transform: scale(1.05);
+        box-shadow: 0 5px 15px rgba(255, 107, 53, 0.3);
+
+        &::before {
+          left: 100%;
+        }
+      }
+    }
+  }
+
+  // Hamburger Menu
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 28px;
+    height: 20px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 1001;
+    transition: transform 0.3s ease;
+
+    &:hover {
+      transform: scale(1.1);
+    }
+
+    .hamburger-line {
+      width: 100%;
+      height: 2px;
+      background-color: var(--color-white);
+      border-radius: 2px;
+      transition: all 0.3s ease;
+      transform-origin: center;
+    }
+
+    &.active {
+      .hamburger-line:nth-child(1) {
+        transform: translateY(9px) rotate(45deg);
+      }
+
+      .hamburger-line:nth-child(2) {
+        opacity: 0;
+        transform: scaleX(0);
+      }
+
+      .hamburger-line:nth-child(3) {
+        transform: translateY(-9px) rotate(-45deg);
+      }
+    }
+  }
+
+  // Mobile Menu
+  .mobile-menu {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 280px;
+    height: 100vh;
+    background-color: var(--color-bg-dark);
+    padding: 6rem 2rem 2rem;
+    transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1000;
+    border-left: 1px solid rgba(255, 255, 255, 0.05);
+
+    &.open {
+      right: 0;
+
+      // Animation stagger des liens
+      .mobile-nav-link,
+      .mobile-btn-contact {
+        animation: slideInRight 0.4s ease-out backwards;
+      }
+
+      @for $i from 1 through 10 {
+        .mobile-nav-link:nth-child(#{$i}) {
+          animation-delay: #{$i * 0.08}s;
+        }
+      }
+
+      .mobile-btn-contact {
+        animation-delay: 0.4s;
+      }
+    }
+
+    @keyframes slideInRight {
+      from {
+        opacity: 0;
+        transform: translateX(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    .mobile-nav {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+
+      .mobile-nav-link {
+        font-size: 1.125rem;
+        font-weight: 500;
+        letter-spacing: 0.05em;
+        color: var(--color-gray-400);
+        padding: 0.75rem 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        transition: all 0.3s ease;
+        position: relative;
+
+        // Effet de slide sur le border
+        &::after {
+          content: '';
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          width: 0;
+          height: 1px;
+          background-color: var(--color-orange);
+          transition: width 0.3s ease;
+        }
+
+        &:hover {
+          color: var(--color-white);
+          transform: translateX(5px);
+
+          &::after {
+            width: 100%;
+          }
+        }
+
+        &.active {
+          color: var(--color-orange);
+
+          &::after {
+            width: 100%;
+          }
+        }
+      }
+
+      .mobile-btn-contact {
+        margin-top: 1rem;
+        padding: 1rem;
+        background-color: var(--color-orange);
+        color: var(--color-white);
+        border-radius: 50px;
+        font-size: 0.875rem;
+        font-weight: 600;
+        letter-spacing: 0.05em;
+        text-align: center;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+
+        &::before {
+          content: '';
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          width: 0;
+          height: 0;
+          border-radius: 50%;
+          background-color: rgba(255, 255, 255, 0.2);
+          transform: translate(-50%, -50%);
+          transition: width 0.5s ease, height 0.5s ease;
+        }
+
+        &:hover {
+          background-color: #FF8547;
+          transform: scale(1.05);
+          box-shadow: 0 5px 15px rgba(255, 107, 53, 0.4);
+
+          &::before {
+            width: 300px;
+            height: 300px;
+          }
+        }
+      }
+    }
+  }
+
+  // Overlay
+  .mobile-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.7);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.4s ease;
+    z-index: 999;
+    backdrop-filter: blur(5px);
+
+    &.active {
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+}
+
+// Responsive
+@media (max-width: 1024px) {
+  .header {
+    .container {
+      padding: 0 2rem;
+    }
+
+    .desktop-nav {
+      gap: 1.5rem;
+
+      .nav-link {
+        font-size: 0.8rem;
+      }
+
+      .btn-contact {
+        padding: 0.6rem 1.25rem;
+        font-size: 0.8rem;
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .header {
+    .container {
+      padding: 0 1.5rem;
+    }
+
+    .logo .logo-text {
+      font-size: 1.25rem;
+    }
+
+    .desktop-nav {
+      display: none;
+    }
+
+    .hamburger {
+      display: flex;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .header {
+    padding: 1rem 0;
+
+    .container {
+      padding: 0 1rem;
+    }
+
+    .mobile-menu {
+      width: 100%;
+      padding: 5rem 1.5rem 2rem;
+    }
+  }
+}

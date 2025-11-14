@@ -1,0 +1,142 @@
+<!-- src/app/pages/contact/contact.component.html -->
+<app-header></app-header>
+
+<main class="contact">
+  <!-- Hero Section -->
+  <section class="contact-hero">
+    <div class="container">
+      <div class="hero-content">
+        <h1 class="page-title">Contact Me</h1>
+        <p class="page-subtitle">For Any Project Knock Me</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Form Section -->
+  <section class="contact-form-section">
+    <div class="container">
+      <div class="contact-grid">
+        <!-- Left Side - Form -->
+        <div class="form-wrapper">
+          <h2 class="form-title">
+            Get in<br>
+            Touch With Me<br>
+          </h2>
+
+          <form class="contact-form" (ngSubmit)="onSubmit()">
+            <!-- Name Input -->
+            <div class="form-group">
+              <label for="name" class="form-label">NAME</label>
+              <input
+                type="text"
+                id="name"
+                class="form-input"
+                [value]="formData().name"
+                (input)="updateField('name', $any($event.target).value)"
+                placeholder="Your full name"
+                required
+              />
+            </div>
+
+            <!-- Subject Input -->
+            <div class="form-group">
+              <label for="subject" class="form-label">SUBJECT</label>
+              <input
+                type="text"
+                id="subject"
+                class="form-input"
+                [value]="formData().subject"
+                (input)="updateField('subject', $any($event.target).value)"
+                placeholder="Subject of your message"
+                required
+              />
+            </div>
+
+            <!-- Message Textarea -->
+            <div class="form-group">
+              <label for="message" class="form-label">MESSAGE</label>
+              <textarea
+                id="message"
+                class="form-textarea"
+                rows="5"
+                [value]="formData().message"
+                (input)="updateField('message', $any($event.target).value)"
+                placeholder="Your message..."
+                required
+              ></textarea>
+            </div>
+
+            <!-- Submit Button -->
+            <button
+              type="submit"
+              class="btn-submit"
+              [disabled]="!isFormValid() || isSubmitting()"
+              [class.submitting]="isSubmitting()"
+              [class.success]="submitSuccess()">
+              <span *ngIf="!isSubmitting() && !submitSuccess()">SEND</span>
+              <span *ngIf="isSubmitting()">SENDING...</span>
+              <span *ngIf="submitSuccess()">✓ SENT!</span>
+            </button>
+
+            <!-- Success Message -->
+            <div class="success-message" *ngIf="submitSuccess()">
+              <p>✓ Message sent successfully! I will reply to you soon.</p>
+            </div>
+          </form>
+        </div>
+
+        <!-- Right Side - Image -->
+        <!-- Right Side - Placeholder stylé -->
+<div class="image-wrapper">
+  <div class="contact-visual">
+    <!-- Option A : Placeholder avec icône -->
+    <div class="visual-placeholder">
+      <div class="placeholder-icon">
+        <svg width="120" height="120" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+        </svg>
+      </div>
+      <h3 class="placeholder-title">Let's Work Together</h3>
+      <p class="placeholder-text">Ready to bring your ideas to life</p>
+    </div>
+
+    <!-- Option B : Grid de technos -->
+    <!-- <div class="tech-visual">
+      <div class="tech-item" *ngFor="let tech of ['Angular', 'Spring', 'Docker', 'PostgreSQL']">
+        <span>{{ tech }}</span>
+      </div>
+    </div> -->
+  </div>
+</div>
+      </div>
+
+      <!-- Contact Info Bar -->
+      <div class="contact-info-bar">
+        <div class="info-item">
+          <img class="image-icon" src="assets/icons/place.png">
+          <span class="info-text">{{ contactInfo.address }}</span>
+        </div>
+        <div class="info-item">
+          <img class="image-icon" src="assets/icons/phone.png">
+          <span class="info-text">{{ contactInfo.phone }}</span>
+        </div>
+        <div class="info-item">
+          <img class="image-icon" src="assets/icons/mail.png">
+          <a [href]="'mailto:' + contactInfo.email" class="info-link">{{ contactInfo.email }}</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta-section">
+    <div class="container">
+      <div class="cta-content">
+        <p class="cta-label">Get in Touch With Me</p>
+        <a href="mailto:csroot667@gmail.com" class="cta-email">csroot667</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<app-footer></app-footer>

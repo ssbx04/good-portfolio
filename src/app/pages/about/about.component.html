@@ -1,0 +1,158 @@
+<!-- src/app/pages/about/about.component.html -->
+<app-header></app-header>
+
+<main class="about">
+  <!-- Hero Section -->
+  <section class="about-hero">
+    <div class="container">
+      <div class="hero-content">
+        <h1 class="page-title">About Me</h1>
+        <p class="page-subtitle">A Little More About My Journey</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Mission Section -->
+  <section class="mission-section">
+    <div class="container">
+      <div class="mission-content">
+        <div class="mission-text">
+          <h2 class="section-title">
+            My mission is to create<br>
+            high-performance<br>
+            technical solutions.
+          </h2>
+        </div>
+        <div class="mission-description">
+          <p>
+            Full Stack Developer with over 4 years of experience, specialized in <strong>Spring Boot</strong> and <strong>Angular</strong>. I transform complex ideas into elegant and high-performance solutions.
+          </p>
+          <p>
+            Expert in backend architecture with Spring Boot, modern frontend development, and Artificial Intelligence. My approach combines technical expertise and product vision to deliver applications that exceed expectations.
+          </p>
+        </div>
+      </div>
+
+      <!-- Tech Stack Grid (As in the original design) -->
+      <div class="tech-stack-grid">
+        <!-- Main stack (left image) -->
+        <div class="stack-card">
+          <div class="stack-card-header">
+            <div class="decorative-border decorative-left"></div>
+          </div>
+          <div class="stack-content">
+            <h3 class="stack-title">Core Stack</h3>
+            <div class="tech-icons">
+              <div
+                *ngFor="let tech of mainStack"
+                class="tech-icon"
+                [title]="tech.name">
+                <img [src]="tech.logo" [alt]="tech.name" loading="lazy" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Secondary stack (right image) -->
+        <div class="stack-card">
+          <div class="stack-card-header">
+            <div class="decorative-border decorative-right"></div>
+          </div>
+          <div class="stack-content">
+            <h3 class="stack-title">Tools & Technologies</h3>
+            <div class="tech-icons">
+              <div
+                *ngFor="let tech of secondaryStack"
+                class="tech-icon"
+                [title]="tech.name">
+                <img [src]="tech.logo" [alt]="tech.name" loading="lazy" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Professional Experience Section -->
+  <section class="experience-section">
+    <div class="container">
+      <h3 class="section-title-experience">Professional Experience</h3>
+
+      <div class="experience-timeline">
+        <div
+          *ngFor="let exp of experiences; let i = index"
+          class="experience-card"
+          [style.animation-delay.ms]="i * 150">
+
+          <!-- Company Logo (optional) -->
+          <div class="company-logo" *ngIf="exp.logo">
+            <img [src]="exp.logo" [alt]="exp.company" />
+          </div>
+
+          <!-- Experience Content -->
+          <div class="experience-content">
+            <div class="experience-header">
+              <div class="header-left">
+                <h4 class="position">{{ exp.position }}</h4>
+                <div class="company-info">
+                  <span class="company">{{ exp.company }}</span>
+                  <span class="separator">•</span>
+                  <span class="location">{{ exp.location }}</span>
+                </div>
+              </div>
+              <span class="period">{{ exp.period }}</span>
+            </div>
+
+            <p class="description">{{ exp.description }}</p>
+
+            <!-- Achievements -->
+            <div class="achievements">
+              <h5 class="achievements-title">Key Achievements:</h5>
+              <ul class="achievements-list">
+                <li *ngFor="let achievement of exp.achievements">{{ achievement }}</li>
+              </ul>
+            </div>
+
+            <!-- Technologies -->
+            <div class="technologies">
+              <span *ngFor="let tech of exp.technologies" class="tech-tag">{{ tech }}</span>
+            </div>
+          </div>
+
+          <!-- Timeline dot -->
+          <div class="timeline-dot"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Social Links Section -->
+  <section class="social-section">
+    <div class="container">
+      <h3 class="social-title">Follow me on:</h3>
+      <div class="social-links">
+        <a
+          *ngFor="let social of socialLinks"
+          [href]="social.url"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="social-link">
+          {{ social.name }}
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta-section">
+    <div class="container">
+      <div class="cta-content">
+        <p class="cta-label">Get in Touch With Me</p>
+        <a href="mailto:info@aaronn.com" class="cta-email">info&#64;aaronn.com</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<app-footer></app-footer>
